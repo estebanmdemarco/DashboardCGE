@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.plot.ly/plotly-2.29.1.min.js"></script>
     <style>
-        /* Variables de estilo (reconstruidas) */
+        /* Variables de estilo */
         :root {
             --color-principal: #004c99;
             --color-sin-bono: #ff4d4d;
@@ -33,7 +33,7 @@
             justify-content: start; 
             gap: 40px; 
             margin: 30px 0;
-            flex-wrap: wrap; /* Permite que los KPIs bajen de línea si no caben */
+            flex-wrap: wrap; 
         }
         .kpi-box { 
             background-color: white; 
@@ -41,7 +41,7 @@
             padding: 25px; 
             border-radius: 8px; 
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-            width: 30%; /* Ajuste de ancho para 3 cajas en escritorio */
+            width: 30%;
         }
         .kpi-box[style*="#ff4d4d"] { border-left-color: var(--color-sin-bono); }
         .kpi-box h4 { color: #555; margin: 0 0 10px 0; font-size: 1.1em; font-weight: 400; }
@@ -69,7 +69,7 @@
             border-radius: 8px; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
             padding: 15px; 
-            width: 49%; /* Dos gráficos por fila */
+            width: 49%; 
             box-sizing: border-box; 
             transition: transform 0.3s ease;
         }
@@ -77,10 +77,10 @@
             transform: translateY(-3px);
         }
 
-        /* 🔑 CORRECCIÓN 2: Media Query para Pantallas Pequeñas (Responsive) */
+        /* 2. Media Query para Pantallas Pequeñas (Responsive) */
         @media only screen and (max-width: 768px) {
             .header {
-                flex-direction: column; /* Apilar logo y texto */
+                flex-direction: column; 
                 text-align: center;
                 padding: 20px 15px;
             }
@@ -93,14 +93,14 @@
             }
 
             .kpi-section {
-                flex-direction: column; /* Apilar KPIs */
+                flex-direction: column !important; /* Forzar el apilamiento de KPIs */
                 gap: 20px;
             }
             .kpi-box {
-                width: 100%; /* KPIs ocupan todo el ancho */
+                width: 100% !important; /* Forzar ancho completo de KPIs */
             }
             .kpi-box p {
-                font-size: 2.2em; /* Reducir tamaño de letra del KPI */
+                font-size: 2.2em; 
             }
 
             .filter-grid {
@@ -108,20 +108,21 @@
             }
 
             .chart-row {
-                flex-direction: column; /* Apilar gráficos */
+                flex-direction: column !important; /* 👈 CLAVE: Apila los gráficos verticalmente */
                 gap: 20px;
             }
             .chart-container {
-                width: 100%; /* Gráficos ocupan todo el ancho */
-                min-height: 400px; /* Asegurar una altura mínima visible */
+                width: 100% !important; /* 👈 CLAVE: Ancho completo para los gráficos */
+                min-height: 400px;
             }
         }
     </style>
     
 <script src="https://cdn.plot.ly/plotly-2.29.1.min.js"></script>
 <script>
-    // ⚠️ ATENCIÓN: JSON DE DATOS TRUNCADO EN EL CÓDIGO PROPORCIONADO. 
-    // Por favor, reemplaza este snippet con tu JSON COMPLETO y ORIGINAL.
+    // ⚠️ IMPORTANTE: ESTOS SON DATOS DE EJEMPLO MÍNIMOS. 
+    // Por favor, reemplaza el contenido de 'rawData' con tu cadena JSON completa y original 
+    // para que el dashboard muestre la información correcta.
     var rawData = [{"Estado":"CONFIRMADO","Origen":"PROTOCOLO","Monto":0.0,"Tribuna":"CENTENARIO","Volumen":1,"TipoBono":"SIN BONO VOLUNTARIO"}, {"Estado":"CONFIRMADO","Origen":"CANJE","Monto":30000.0,"Tribuna":"FAVALORO","Volumen":1,"TipoBono":"BONO VOLUNTARIO"}];
     
     function updateDashboard() {
@@ -289,4 +290,17 @@
             <h4>VOLUMEN TOTAL DE TICKETS</h4>
             <p id="kpi-volumen">2</p>
         </div>
-        <div class="kpi-box
+        <div class="kpi-box" style="border-left: 6px solid #ff4d4d;"> 
+            <h4>VOLUMEN SIN BONO VOLUNTARIO</h4>
+            <p id="kpi-sin-bono" style="color: #ff4d4d;">1 <span style="font-size: 0.5em; opacity: 0.7;">(50.0%)</span></p>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div id="chart2" class="chart-container" style="height: 500px;"></div> 
+        <div id="chart3" class="chart-container" style="height: 500px;"></div>
+    </div>
+    
+</div>
+</body>
+</html>
