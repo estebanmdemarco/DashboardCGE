@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.plot.ly/plotly-2.29.1.min.js"></script>
     <style>
-        /* Variables de estilo */
+        /* Variables de estilo (reconstruidas) */
         :root {
             --color-principal: #004c99;
             --color-sin-bono: #ff4d4d;
@@ -33,7 +33,7 @@
             justify-content: start; 
             gap: 40px; 
             margin: 30px 0;
-            flex-wrap: wrap; 
+            flex-wrap: wrap; /* Permite que los KPIs bajen de línea si no caben */
         }
         .kpi-box { 
             background-color: white; 
@@ -41,7 +41,7 @@
             padding: 25px; 
             border-radius: 8px; 
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-            width: 30%;
+            width: 30%; /* Ajuste de ancho para 3 cajas en escritorio */
         }
         .kpi-box[style*="#ff4d4d"] { border-left-color: var(--color-sin-bono); }
         .kpi-box h4 { color: #555; margin: 0 0 10px 0; font-size: 1.1em; font-weight: 400; }
@@ -69,7 +69,7 @@
             border-radius: 8px; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
             padding: 15px; 
-            width: 49%; 
+            width: 49%; /* Dos gráficos por fila */
             box-sizing: border-box; 
             transition: transform 0.3s ease;
         }
@@ -77,10 +77,10 @@
             transform: translateY(-3px);
         }
 
-        /* 2. Media Query para Pantallas Pequeñas (Responsive) */
+        /* 🔑 CORRECCIÓN 2: Media Query para Pantallas Pequeñas (Responsive) */
         @media only screen and (max-width: 768px) {
             .header {
-                flex-direction: column; 
+                flex-direction: column; /* Apilar logo y texto */
                 text-align: center;
                 padding: 20px 15px;
             }
@@ -93,14 +93,14 @@
             }
 
             .kpi-section {
-                flex-direction: column !important; /* Forzar el apilamiento de KPIs */
+                flex-direction: column; /* Apilar KPIs */
                 gap: 20px;
             }
             .kpi-box {
-                width: 100% !important; /* Forzar ancho completo de KPIs */
+                width: 100%; /* KPIs ocupan todo el ancho */
             }
             .kpi-box p {
-                font-size: 2.2em; 
+                font-size: 2.2em; /* Reducir tamaño de letra del KPI */
             }
 
             .filter-grid {
@@ -108,21 +108,20 @@
             }
 
             .chart-row {
-                flex-direction: column !important; /* 👈 CLAVE: Apila los gráficos verticalmente */
+                flex-direction: column; /* Apilar gráficos */
                 gap: 20px;
             }
             .chart-container {
-                width: 100% !important; /* 👈 CLAVE: Ancho completo para los gráficos */
-                min-height: 400px;
+                width: 100%; /* Gráficos ocupan todo el ancho */
+                min-height: 400px; /* Asegurar una altura mínima visible */
             }
         }
     </style>
     
 <script src="https://cdn.plot.ly/plotly-2.29.1.min.js"></script>
 <script>
-    // ⚠️ IMPORTANTE: ESTOS SON DATOS DE EJEMPLO MÍNIMOS. 
-    // Por favor, reemplaza el contenido de 'rawData' con tu cadena JSON completa y original 
-    // para que el dashboard muestre la información correcta.
+    // ⚠️ ATENCIÓN: JSON DE DATOS TRUNCADO EN EL CÓDIGO PROPORCIONADO. 
+    // Por favor, reemplaza este snippet con tu JSON COMPLETO y ORIGINAL.
     var rawData = [{"Estado":"CONFIRMADO","Origen":"PROTOCOLO","Monto":0.0,"Tribuna":"CENTENARIO","Volumen":1,"TipoBono":"SIN BONO VOLUNTARIO"}, {"Estado":"CONFIRMADO","Origen":"CANJE","Monto":30000.0,"Tribuna":"FAVALORO","Volumen":1,"TipoBono":"BONO VOLUNTARIO"}];
     
     function updateDashboard() {
