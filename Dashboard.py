@@ -11,7 +11,8 @@ CLUB_ID = st.secrets["CLUB_IDENTIFICADOR"]
 
 # 2. Función para obtener datos masivos (API de Reportes - pág 11)
 def fetch_reporte_personas():
-    url = f"https://consultas.ourclub.io/{CLUB_ID}/personas"
+    # 1. Agregamos los parámetros directamente a la URL
+    url = f"https://consultas.ourclub.io/{CLUB_ID}/personas?socio_vigente=True"
     
     headers = {
         "X-Api-Key": API_KEY,
@@ -19,11 +20,8 @@ def fetch_reporte_personas():
         "Content-Type": "application/json"
     }
     
-    # Payload minimalista: solo lo indispensable para que no explote el servidor
-    payload = {
-        "csv": False,
-        "socio_vigente": True
-    }
+    # 2. Si es un POST que solo filtra por URL, el body debe ir como un JSON vacío o mínimo
+    payload = {}
     
     try:
         # Usamos POST como en tu Postman
@@ -65,3 +63,4 @@ if data:
         st.dataframe(df.head(10))
     else:
         st.warning("No se encontraron registros con los filtros aplicados.")
+
