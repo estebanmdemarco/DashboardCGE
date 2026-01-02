@@ -18,22 +18,25 @@ def fetch_reporte_personas():
         "Content-Type": "application/json"
     }
     
-    # Definimos qué datos queremos traer para nuestras métricas
+    # Payload simplificado para probar la conexión
+    # Según pág 11, 'campos' es opcional. Si lo quitamos, trae los básicos por defecto.
     payload = {
         "csv": False,
-        "campos": [
-            "apellido", "nombre", "nrosocio", "email", 
-            "categoriasocio", "socio_vigente", "tieneDeuda",
-            "fechanacimiento", "sexo"
-        ]
+        "socio_vigente": True  # Solo traemos los activos para reducir carga
     }
     
     try:
         response = requests.post(url, json=payload, headers=headers)
+        
+        # Si da error 500, imprimimos el texto del error para debuguear
+        if response.status_code == 500:
+            st.error(f"Error 500 del Servidor: {response.text}")
+            return None
+            
         response.raise_for_status()
         return response.json()
     except Exception as e:
-        st.error(f"Error al conectar con la API de OurClub: {e}")
+        st.error(f"Error de conexión: {e}")
         return None
 
 # 3. Diseño del Dashboard Web
@@ -89,4 +92,5 @@ if data and "items" in data:
         st.dataframe(df)
 
 else:
+
     st.warning("No se pudieron cargar los datos. Verifica tus credenciales.")
