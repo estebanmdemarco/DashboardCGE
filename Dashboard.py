@@ -22,13 +22,13 @@ def fetch_reporte_personas():
     
     # 2. Si es un POST que solo filtra por URL, el body debe ir como un JSON vacío o mínimo
     payload = {
-"csv": false,
-"campos": [
+                "csv": false,
+                    "campos": [
 
-"apellido", "nombre", "nrosocio", "email", "documento"
-]
+                    "apellido", "nombre", "nrosocio", "email", "documento"
+                    ]
 
-}
+                }
     
     try:
         # Usamos POST como en tu Postman
@@ -70,5 +70,6 @@ if data:
         st.dataframe(df.head(10))
     else:
         st.warning("No se encontraron registros con los filtros aplicados.")
+
 
 
